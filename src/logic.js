@@ -8,5 +8,13 @@ module.exports = event => {
         return 'Я даю офигенные советы! Просто попроси еще совет!';
     }
 
-    return httpRequest(`${API_ENDPOINT}random`).then(resp => JSON.parse(resp));
+    return httpRequest(`${API_ENDPOINT}random`)
+        .then(resp => JSON.parse(resp))
+        .then(resp => {
+            if (!event.session.new) return resp;
+
+            resp.text += ' Если хотите еще один охуенный совет, скажите «Ещё!»';
+
+            return resp;
+        });
 }
