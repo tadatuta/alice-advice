@@ -13,5 +13,7 @@ module.exports.handler = async (event) => {
             tts: data.tts || text,
             end_session: false,
         },
+        session_state: data.state,
+        user_state_update: data.state
     };
 }
